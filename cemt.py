@@ -14,36 +14,40 @@ class Engine(object):
     def __init__(self, name):
         self.name = name
     def run (self):
-        welcome = Menu('initial')
-        welcome.initialMenu()
+        welcome = Menu('initial', 'Welcome to CEMT!\nplease select your option below:\n\n', ['1) Deploy new Endpoint','2) Bulk Administration','3) Status check (online/offline)','4) Connect to Endpoint','0) Exit'])
+        welcome.printMenu()
+        optionSelect()
 
 class Menu(object):
+    name = ""
+    header = ""
+    menu_options = []
     #All of the menus of initial structure of application, this does not include those of each respective imported module"
-    def __init__(self, name):
+    def __init__(self, name, header, menu_options):
         self.name = name
-    #launch the initial Menu"
-    def initialMenu(name):
-        print """Welcome to CEMT!\nplease select your option below:\n\n1) Deploy new Endpoint\n2) Bulk Administration\n3) Status check (online/offline)\n4) Connect to Endpoint\n0) Exit
-        """
-        possibleArgs = 5
-        optionSelect()
-    #Populate a new menu with fields
-    def addField(self, field):
-        print field
-        pass
+        self.header = header
+        self.menu_options = menu_options
     def printMenu(self):
-        print """---------Bulk Administration---------\n\n1) """
-
-
+        print self.header
+        l = len(self.menu_options)
+        for x in range(l):
+            entry = self.menu_options.pop(0)
+            print entry
 
 def optionSelect():
     userInput = raw_input(prompt)
     if userInput == '1':
         from Modules import jpEndpointDeploy
     elif userInput == '2':
-        print "2"
-        bulk = Menu('bulkAdmin')
+        bulk = Menu('bulkadmin','\n---------Bulk Administration---------\n', ['1) Bulk Connect','0) Exit'])
         bulk.printMenu()
+        userInput = raw_input(prompt)
+        if userInput == '0':
+            sys.exit()
+        elif userInput == '1':
+            from Modules import massTPDConnect
+        else:
+            raise ValueError('Illegal Value')
     elif userInput == '3':
         from Modules import deviceAlive
     elif userInput == '4':
