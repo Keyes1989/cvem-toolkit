@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #Cisco Endpoint Management Toolkit
-#Autho: Jason Keyes
+#Author: Jason Keyes
 #Description: Toolkit to easily manage Cisco Telepresence Endpoints from the command lineself.
 
 
@@ -37,7 +37,7 @@ class Menu(object):
 def optionSelect():
     userInput = raw_input(prompt)
     if userInput == '1':
-        from Modules import jpEndpointDeploy
+        from Modules import endpointDeploy
     elif userInput == '2':
         bulk = Menu('bulkadmin','\n---------Bulk Administration---------\n', ['1) Bulk Connect','0) Exit'])
         bulk.printMenu()
